@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingxi Jiang | AI Researcher & ML Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Configuration & Custom Styles -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(59, 130, 246, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for Timeline */
+        .timeline-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .timeline-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+        .dark .timeline-scroll::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        .timeline-scroll::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 4px;
+        }
+        .timeline-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(107, 114, 128, 0.8);
+        }
+        
+        /* Gantt-style timeline (career duration bars) */
+        .gantt-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        .gantt-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.04);
+            border-radius: 999px;
+        }
+        .dark .gantt-scroll::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        .gantt-scroll::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.65);
+            border-radius: 999px;
+        }
+        .gantt-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 116, 139, 0.85);
+        }
+
+        .gantt-axis-year {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgb(100 116 139);
+            letter-spacing: 0.03em;
+        }
+        .dark .gantt-axis-year {
+            color: rgb(148 163 184);
+        }
+        .gantt-grid-line {
+            position: absolute;
+            top: 30px;
+            bottom: 8px;
+            border-left: 1px dashed rgba(148, 163, 184, 0.25);
+            pointer-events: none;
+        }
+        .dark .gantt-grid-line {
+            border-left-color: rgba(148, 163, 184, 0.2);
+        }
+        .gantt-row-guide {
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            height: 1px;
+            background: rgba(148, 163, 184, 0.08);
+            pointer-events: none;
+        }
+        .dark .gantt-row-guide {
+            background: rgba(148, 163, 184, 0.06);
+        }
+        .gantt-current-marker {
+            position: absolute;
+            top: 28px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(239,68,68,0.95), rgba(248,113,113,0.4));
+            box-shadow: 0 0 0 2px rgba(239,68,68,0.08);
+            pointer-events: none;
+        }
+        .gantt-now-pill {
+            position: absolute;
+            top: 6px;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 700;
+            color: #ef4444;
+            background: rgba(254, 242, 242, 0.95);
+            border: 1px solid rgba(254, 202, 202, 0.9);
+            border-radius: 999px;
+            padding: 1px 8px;
+            letter-spacing: 0.04em;
+            pointer-events: none;
+        }
+        .dark .gantt-now-pill {
+            background: rgba(69, 10, 10, 0.65);
+            border-color: rgba(248, 113, 113, 0.2);
+            color: #fca5a5;
+        }
+
+        .gantt-bar {
+            position: absolute;
+            height: 12px;
+            border-radius: 999px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 3px 10px rgba(15, 23, 42, 0.08);
+        }
+        .dark .gantt-bar {
+            box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 6px 14px rgba(2, 6, 23, 0.22);
+        }
+        .gantt-label {
+            position: absolute;
+            top: 0;
+            max-width: 300px;
+            line-height: 1.15;
+            font-size: 11px;
+            color: rgb(71 85 105);
+        }
+        .dark .gantt-label {
+            color: rgb(148 163 184);
+        }
+        .gantt-label strong {
+            display: block;
+            font-size: 12px;
+            color: rgb(51 65 85);
+            font-weight: 600;
+        }
+        .dark .gantt-label strong {
+            color: rgb(226 232 240);
+        }
+
+
+
+        /* Timesheet-style timeline (closer to reference screenshot) */
+        .timesheet {
+            position: relative;
+            min-width: 100%;
+            color: rgb(71 85 105);
+            font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        }
+        .dark .timesheet {
+            color: rgb(148 163 184);
+        }
+        .timesheet .scale {
+            position: relative;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: var(--year-col-width, 132px);
+            align-items: start;
+            min-height: 38px;
+            margin: 0 0 6px 0;
+            padding: 0;
+        }
+        .timesheet .scale::after {
+            content: "";
+            position: absolute;
+            inset: 22px 0 0 0;
+            border-top: 1px solid rgba(148, 163, 184, 0.18);
+            pointer-events: none;
+        }
+        .timesheet .scale > section {
+            position: relative;
+            padding-left: 6px;
+            font-size: 12px;
+            line-height: 1;
+            color: rgb(100 116 139);
+        }
+        .dark .timesheet .scale > section {
+            color: rgb(148 163 184);
+        }
+        .timesheet .scale > section::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 16px;
+            bottom: calc(-1 * var(--timesheet-data-height, 0px) - 18px);
+            border-left: 1px dashed rgba(148, 163, 184, 0.22);
+            pointer-events: none;
+        }
+        .dark .timesheet .scale > section::before {
+            border-left-color: rgba(148, 163, 184, 0.16);
+        }
+        .timesheet .scale .indicator {
+            position: absolute;
+            top: 12px;
+            bottom: calc(-1 * var(--timesheet-data-height, 0px) - 18px);
+            width: 2px;
+            background: rgba(248, 113, 113, 0.9);
+            box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.08);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .timesheet .data {
+            list-style: none;
+            margin: 0;
+            padding: 2px 0 0;
+            position: relative;
+        }
+        .timesheet .data > li {
+            position: relative;
+            height: 36px;
+            margin: 2px 0;
+            font-size: 10px;
+            line-height: 1;
+        }
+        .timesheet .bubble {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            height: 10px;
+            border-radius: 999px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset;
+        }
+        .timesheet .bubble-edu {
+            background: #a7cf53;
+        }
+        .timesheet .bubble-work {
+            background: #69b8dc;
+        }
+        .timesheet .bubble-research {
+            background: #f07a7a;
+        }
+        .timesheet .bubble-activity {
+            background: #e8cb59;
+        }
+        .timesheet .data > li > .date,
+        .timesheet .data > li > .label {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            font-size: 11px;
+            color: rgb(100 116 139);
+            white-space: nowrap;
+        }
+        .dark .timesheet .data > li > .date,
+        .dark .timesheet .data > li > .label {
+            color: rgb(148 163 184);
+        }
+        .timesheet .data > li > .date {
+            margin-left: 8px;
+            letter-spacing: 0.01em;
+        }
+        .timesheet .data > li > .label {
+            margin-left: 6px;
+            color: rgb(71 85 105);
+        }
+        .dark .timesheet .data > li > .label {
+            color: rgb(203 213 225);
+        }
+        .timesheet .info-left {
+            position: absolute;
+            top: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            white-space: nowrap;
+            z-index: 2;
+        }
+        .timesheet .info-left .label {
+            font-size: 11px;
+            color: rgb(71 85 105);
+            line-height: 1.05;
+        }
+        .dark .timesheet .info-left .label {
+            color: rgb(203 213 225);
+        }
+        .timesheet .info-left .date {
+            margin-top: 2px;
+            font-size: 11px;
+            color: rgb(100 116 139);
+        }
+        .dark .timesheet .info-left .date {
+            color: rgb(148 163 184);
+        }
+        .timesheet.white {
+            background: transparent;
+        }
+        @media (max-width: 1024px) {
+            .timesheet .scale { grid-auto-columns: var(--year-col-width, 120px); }
+        }
+
+        /* Utility fallback if Tailwind line-clamp plugin is unavailable */
+        .line-clamp-4 {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Decorative blob animation used in hero */
+        @keyframes blob-float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(24px, -12px) scale(1.03); }
+            66% { transform: translate(-18px, 14px) scale(0.98); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob-float 14s ease-in-out infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        /* Subtle Entrance Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased transition-colors duration-300">
+
+    <!-- Navigation (Sticky) -->
+    <nav class="fixed w-full top-0 z-50 glass-panel border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo / Name -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-teal-500">
+                        Bingxi Jiang
+                    </a>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
+                    <a href="#resume" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Resume</a>
+                    <a href="#projects" class="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Projects</a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block text-brand-400"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden text-brand-600"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block text-brand-400"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden text-brand-600"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-brand-600">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 flex flex-col">
+                <a href="#home" class="block px-3 py-3 rounded-md text-base font-medium hover:bg-slate-50 dark:hover:bg-slate-800 mobile-nav-link">Home</a>
+                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium hover:bg-slate-50 dark:hover:bg-slate-800 mobile-nav-link">About</a>
+                <a href="#resume" class="block px-3 py-3 rounded-md text-base font-medium hover:bg-slate-50 dark:hover:bg-slate-800 mobile-nav-link">Resume</a>
+                <a href="#projects" class="block px-3 py-3 rounded-md text-base font-medium hover:bg-slate-50 dark:hover:bg-slate-800 mobile-nav-link">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main>
+        
+        <!-- ================= HERO SECTION ================= -->
+        <section id="home" class="min-h-screen flex items-center justify-center relative pt-16 overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-400/20 dark:bg-brand-600/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-teal-300/20 dark:bg-teal-700/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+            
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in-up">
+                <p class="text-sm md:text-base font-medium text-brand-600 dark:text-brand-400 tracking-wide uppercase mb-4" id="hero-intro">
+                    <!-- Injected via JS -->
+                </p>
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-slate-900 dark:text-white">
+                    I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-teal-500">Bingxi Jiang</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 font-light italic mb-10 max-w-2xl mx-auto" id="hero-quote">
+                    <!-- Injected via JS -->
+                </p>
+                
+                <!-- Compact Contact Icons -->
+                <div class="flex justify-center space-x-6 mb-12" id="hero-socials">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#about" class="w-full sm:w-auto px-8 py-3 rounded-full bg-brand-600 text-white font-medium hover:bg-brand-700 hover:shadow-glow transition-all duration-300">
+                        About Me
+                    </a>
+                    <a href="#projects" class="w-full sm:w-auto px-8 py-3 rounded-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 transition-all duration-300">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT SECTION ================= -->
+        <section id="about" class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    <!-- Left Column: About & Contact -->
+                    <div class="lg:col-span-7 space-y-8 fade-in-up">
+                        <div>
+                            <h2 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white flex items-center">
+                                <i data-lucide="user" class="w-8 h-8 mr-3 text-brand-500"></i> About Me
+                            </h2>
+                            <div class="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-300 space-y-4" id="about-text">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Contact Panel inside About -->
+                        <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-700/50">
+                            <h3 class="text-xl font-semibold mb-4 text-slate-900 dark:text-white">Let's Connect</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">I'm always open to collaboration, research opportunities, and meaningful ideas.</p>
+                            
+                            <div class="flex flex-wrap gap-4 mb-5" id="about-contact-links">
+                                <!-- Injected via JS -->
+                            </div>
+
+                            <div>
+                                <a id="resume-download-btn" href="#" target="_blank" class="inline-flex items-center px-6 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+                                    <i data-lucide="file-down" class="w-5 h-5 mr-2"></i> Download Resume
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Skills -->
+                    <div class="lg:col-span-5 space-y-6 fade-in-up delay-100">
+                        <!-- Skills Card -->
+                        <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-3xl border border-slate-100 dark:border-slate-700/50 shadow-soft">
+                            <h3 class="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center">
+                                <i data-lucide="cpu" class="w-6 h-6 mr-3 text-brand-500"></i> Technical Skills
+                            </h3>
+                            <div class="space-y-4" id="skills-container">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= RESUME SECTION ================= -->
+        <section id="resume" class="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white inline-flex items-center">
+                        <i data-lucide="book-open" class="w-8 h-8 mr-3 text-brand-500"></i> Resume
+                    </h2>
+                </div>
+
+                <!-- 2. Education & Experience Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Education Sidebar -->
+                    <div class="lg:col-span-4 fade-in-up delay-100">
+                        <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white flex items-center">
+                            <i data-lucide="graduation-cap" class="w-6 h-6 mr-3 text-brand-500"></i> Education
+                        </h3>
+                        <div id="education-container" class="space-y-6">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Experience Main Area -->
+                    <div class="lg:col-span-8 fade-in-up delay-200">
+                        <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white flex items-center">
+                            <i data-lucide="briefcase" class="w-6 h-6 mr-3 text-brand-500"></i> Research & Experience
+                        </h3>
+                        <div id="experience-container" class="space-y-6 relative border-l-2 border-brand-100 dark:border-slate-800 pl-6 ml-3">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROJECTS SECTION ================= -->
+        <section id="projects" class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white inline-flex items-center">
+                        <i data-lucide="layout-grid" class="w-8 h-8 mr-3 text-brand-500"></i> Projects & Activities
+                    </h2>
+                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        A selection of my projects and activities across AI/ML, robotics, software, and student leadership.
+                    </p>
+                </div>
+
+                <div class="space-y-14 fade-in-up delay-100">
+                    <div>
+                        <div class="flex items-center mb-5"><i data-lucide="folder-kanban" class="w-5 h-5 mr-2 text-brand-500"></i><h3 class="text-2xl font-bold text-slate-900 dark:text-white">Projects</h3></div>
+                        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Injected via JS --></div>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-5"><i data-lucide="users" class="w-5 h-5 mr-2 text-brand-500"></i><h3 class="text-2xl font-bold text-slate-900 dark:text-white">Activities</h3></div>
+                        <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Injected via JS --></div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-950 py-12 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 dark:text-slate-400 font-medium">
+                &copy; <span id="current-year"></span> Bingxi Jiang (Paul Jiang). Built for innovation.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ================= DATA & LOGIC SCRIPT ================= -->
+    <script>
+        /**
+         * =====================================================================
+         * PORTFOLIO DATA (EDIT THIS SECTION)
+         * All site content is generated from this structured data object.
+         * Replace the placeholders (null values, placeholder paths) with your actual links and assets.
+         * =====================================================================
+         */
+        const PORTFOLIO_DATA = {
+            hero: {
+                intro: "AI Researcher / ML Engineer / Builder of human-centered intelligent systems",
+                quote: "“The only way to do great work is to love what you do.”",
+            },
+            
+            // Files & Assets
+            assets: {
+                // EDIT THIS: Path to your actual resume PDF
+                resumePdfPath: "assets/resume/Paul_Resume_MLE.pdf" 
+            },
+
+            contact: {
+                email: "pauljiang137@gmail.com",
+                github: "https://github.com/Bingxi-Jiang", // EDIT THIS
+                linkedin: "https://www.linkedin.com/in/bingxi-jiang/", 
+                wechat: "PaulJiang137" // EDIT THIS
+            },
+
+            about: [
+                "My name is Bingxi Jiang (Paul Jiang), and I am a machine learning engineer and AI researcher.",
+                "My interests focus on the practical and research applications of large language models, multimodal systems, agentic workflows, and intelligent human-centered tools.",
+                "I actively bridge the gap between complex model capabilities and user-facing infrastructure, building systems that automate tedious tasks and augment human capability.",
+                "In my free time, I enjoy badminton, hiking, frisbee, and social-media content creation and video editing. Moreover, I find great joy in utilizing my skills and knowledge to assist others in pursuing their dreams."
+            ],
+
+            skills: [
+                { category: "Programming", items: ["Python", "C++", "SQL", "JavaScript", "Java", "C"] },
+                { category: "ML / AI", items: ["PyTorch", "Scikit-learn", "Hugging Face", "CNNs", "CV pipelines", "Model fine-tuning"] },
+                { category: "LLM / Agents / Prompting", items: ["Prompt Engineering", "Structured Outputs (JSON/Schema)", "Tool/Workflow Orchestration", "LLM Evaluation"] },
+                { category: "Web / App Development", items: ["React", "TypeScript", "Tailwind CSS", "Node.js"] },
+                { category: "Data / Infra / Engineering", items: ["ETL", "API Integration", "Git", "Experiment Logging", "Reproducible Pipelines"] },
+                { category: "Embedded / Robotics", items: ["Microcontrollers", "MPU6050", "GPS integration", "Sensor-based systems", "Computer vision calibration"] }
+            ],
+
+            languages: [
+                { name: "English", proficiency: "Fluent" },
+                { name: "Mandarin Chinese", proficiency: "Native" }
+            ],
+
+            timeline: [
+                { label: "High School", org: "Secondary Education", start: "2020-09", end: "2024-06", type: "education" },
+                { label: "Carnegie Mellon University", org: "Visiting Student Researcher", start: "2022-11", end: "2023-11", type: "research" },
+                { label: "UC Irvine", org: "Student", start: "2024-09", end: null, type: "education", active: true },
+                { label: "DeepEM Lab, UCI", org: "Research Intern", start: "2025-01", end: "2025-06", type: "research" },
+                { label: "Ping An Technology", org: "CV Algorithm Engineer", start: "2025-06", end: "2025-09", type: "industry" },
+                { label: "Fresh Road", org: "Software Engineer", start: "2025-09", end: "2025-12", type: "industry" },
+                { label: "Relational Cognition Lab, UCI", org: "Research Assistant", start: "2026-01", end: null, type: "research", active: true },
+                { label: "CS/Xie Lab, UCI", org: "Research Intern", start: "2026-02", end: null, type: "research", active: true }
+            ],
+
+            education: [
+                {
+                    institution: "University of California, Irvine",
+                    degree: "Double Major: Computer Science + Business Information Management",
+                    expectedGraduation: "June 2027", // EDIT THIS
+                    gpa: "3.725 / 4.0", // EDIT THIS
+                    description: "Focused on machine learning, large language model applications, intelligent systems, and human-centered AI tools. Balancing rigorous academic coursework with active research lab involvement and engineering-focused product prototyping.",
+                    badges: ["AI/ML Focus", "Dean's Honor List"],
+                    logoSrc: "assets/logos/uci.png",
+                    logoAlt: "UCI logo"
+                }
+            ],
+
+            experience: [
+                
+                {
+                    role: "Research Intern",
+                    organization: "UCI CS/Xie Lab",
+                    logoSrc: "assets/logos/uci-xie-lab.png",
+                    logoAlt: "UCI CS/Xie Lab logo",
+                    dates: "Feb 2026 – Present",
+                    bullets: [
+                        "Developing an AI workflow agent to help bioinformatics researchers perform data analysis without needing to write code.",
+                        "Designing guided workflow generation and tool-usage assistance to lower computational barriers for domain users.",
+                        "Building robust error-handling and recovery support to help users understand failures and continue analysis reliably."
+                    ],
+                    tags: ["LLM Agents", "Workflow Orchestration", "Tool Integration", "Human-Centered AI"]
+                },
+            
+                {
+                    role: "Research Assistant",
+                    organization: "UCI Relational Cognition Lab",
+                    logoSrc: "assets/logos/uci-relational-cognition-lab.png",
+                    logoAlt: "UCI Relational Cognition Lab logo",
+                    dates: "Jan 2026 – Present",
+                    bullets: [
+                        "Conduct research on large language model behavior and moral/virtue-related reasoning, focusing on structured evaluation and comparative model analysis.",
+                        "Design experiment pipelines for prompt-based probing, response collection, and cross-model benchmarking across multiple LLM families.",
+                        "Contribute to research iteration cycles by refining prompts, evaluation criteria, and analysis methods based on observed model behavior."
+                    ],
+                    tags: ["Python", "LLM Evaluation", "Prompt Design", "Experimental Analysis"]
+                },
+                
+                {
+                    role: "Software Engineer",
+                    organization: "Fresh Road",
+                    logoSrc: "assets/logos/fresh-road.png",
+                    logoAlt: "Fresh Road logo",
+                    dates: "Sep 2025 – Dec 2025",
+                    bullets: [
+                        "Built and improved backend software components for AI-enabled business workflows, focusing on reliability and practical deployment.",
+                        "Contributed to API and service logic development for automation-oriented product features and internal operational tooling.",
+                        "Supported iterative engineering improvements through debugging, testing, and rapid feature refinement in a fast-paced environment."
+                    ],
+                    tags: ["Node.js", "APIs", "Backend Engineering", "Automation"]
+                },
+                {
+                    role: "Computer Vision Algorithm Engineer",
+                    organization: "Ping An Technology",
+                    logoSrc: "assets/logos/ping-an.png",
+                    logoAlt: "Ping An Technology logo",
+                    dates: "Jun 2025 – Sep 2025",
+                    bullets: [
+                        "Worked on computer vision model development and optimization for real-world industrial scenarios, including data-centric improvement workflows.",
+                        "Participated in large-scale training / fine-tuning pipelines and experiment iteration for visual understanding tasks.",
+                        "Contributed to data processing, evaluation, and model performance analysis to improve robustness and deployment readiness."
+                    ],
+                    tags: ["Computer Vision", "PyTorch", "Model Fine-tuning", "Evaluation"]
+                },
+                {
+                    role: "Research Intern",
+                    organization: "DeepEM Lab (UCI)",
+                    logoSrc: "assets/logos/deepem-lab.png",
+                    logoAlt: "DeepEM Lab (UCI) logo",
+                    dates: "Jan 2025 – Jun 2025",
+                    bullets: [
+                        "Conducted machine learning experimentation for scientific/materials-related data analysis tasks.",
+                        "Applied classical ML methods and data preprocessing workflows to support classification-oriented research objectives.",
+                        "Performed iterative evaluation and result analysis to identify effective approaches under limited/noisy data conditions."
+                    ],
+                    tags: ["Python", "Scikit-learn", "Scientific ML", "Data Analysis"]
+                },
+                {
+                    role: "Visiting Student Researcher",
+                    organization: "Carnegie Mellon University",
+                    logoSrc: "assets/logos/cmu.png",
+                    logoAlt: "Carnegie Mellon University logo",
+                    dates: "Nov 2022 – Nov 2023",
+                    bullets: [
+                        "Contributed to a robotics and computer vision project on automated clothes folding using learned keypoints for deformable garments, under Prof. Oliver Kroemer.",
+                        "Developed and trained a neural network for keypoint detection on cloth objects, focusing on perception for manipulation.",
+                        "Leveraged large-scale synthetic data generated in Blender to improve model generalization and reduce annotation dependency."
+                    ],
+                    tags: ["Robotics", "Computer Vision", "Synthetic Data", "Simulation"]
+                }
+            ],
+
+            projects: [
+                // === AI / LLM / Software ===
+                {
+                    title: "FlowCrusade",
+                    subtitle: "ADHD-Friendly AI Productivity System",
+                    description: "A human-centered productivity system designed to reduce task initiation friction for users with ADHD-like challenges. Uses AI to break large tasks into smaller actionable subtasks, supports recursive re-generation, and integrates focus monitoring with a modern interactive UI.",
+                    imageSrc: "assets/projects/flowcrusade.jpg",
+                    techTags: ["Gemini Live API", "Prompt Engineering", "React", "Node.js", "Tailwind"],
+                    links: { github: null, demo: null, details: null }
+                },
+                {
+                    title: "Artified Self",
+                    subtitle: "Multimodal AI Personal Narrative Engine",
+                    description: "A multimodal personal analytics system that captures and structures daily digital activity into time-based narratives, enabling users to review how they spend their time and generate reflective summaries about productivity, habits, and digital behavior. Designed as a human-centered self-tracking and life-logging assistant with AI-assisted analysis.",
+                    imageSrc: "assets/projects/artified-self.jpg",
+                    techTags: ["Multimodal AI", "Data Pipelines", "LLMs", "Time-series Analysis"],
+                    links: { github: "https://github.com/Bingxi-Jiang/Mosaic-Piece-together-your-life", demo: null, details: null }
+                },
+                {
+                    title: "Syllabus-to-Schedule",
+                    subtitle: "LLM-Powered Academic Schedule ETL",
+                    description: "An intelligent academic planning tool that extracts deadlines, schedules, and course logistics from messy syllabus documents (including PDFs), structures them into calendar-ready events, and helps students build a more reliable, personalized planning workflow beyond standard LMS calendars.",
+                    imageSrc: "assets/projects/syllabus-to-schedule.jpg",
+                    techTags: ["LLM Extraction", "ETL", "JSON Schema", "Document Parsing"],
+                    links: { github: null, demo: null, details: null }
+                },
+                {
+                    title: "Sora Persona Engine",
+                    subtitle: "Convert ideas into production-ready prompts",
+                    description: "An AI-powered prompt mining and customization system for short-video creation workflows. Analyzes prompt histories and creator patterns to build reusable style guidance and persona-aware prompt generation strategies, helping creators produce consistent and high-performing outputs.",
+                    imageSrc: "assets/projects/sora-persona-engine.jpg",
+                    techTags: ["Prompt Engineering", "Data Mining", "AI Orchestration"],
+                    links: { github: null, demo: null, details: null }
+                },
+                {
+                    title: "BetterGI",
+                    subtitle: "UI Automation Tool for Mobile Games",
+                    description: "A UI automation and interaction tool designed to reduce repetitive in-game tasks. Contributions include automation logic for fishing workflows and related interaction handling, utilizing computer vision and task automation strategies for reliability and efficiency.",
+                    imageSrc: "assets/projects/bettergi.jpg",
+                    techTags: ["Computer Vision", "UI Automation", "Scripting"],
+                    links: { github: "https://github.com/babalae/better-genshin-impact", demo: null, details: null }
+                },
+                
+                // === Robotics / CV / Hardware ===
+                {
+                    title: "Robotic Clothes Folding",
+                    subtitle: "Carnegie Mellon University",
+                    description: "Explored cloth folding automation through learned keypoint detection on deformable garments. Leveraged large-scale synthetic data generated in Blender to train perception models for garments like T-shirts and pants, reducing dependence on costly real-world annotations.",
+                    imageSrc: "assets/projects/robotic-clothes-folding.jpg",
+                    techTags: ["Robotics", "Computer Vision", "Synthetic Data", "Blender"],
+                    links: { github: "https://github.com/Bingxi-Jiang/Robotic-Clothes-Folding-using-Learned-Keypoints-from-Synthetic-Data", demo: null, details: null, paper: null }
+                },
+                {
+                    title: "CalGlass",
+                    subtitle: "AI-Based Calorie Recognition IoT Glasses",
+                    description: "A wearable IoT smart-glasses system for food intake tracking that uses computer vision and neural-network-based recognition to identify dishes and estimate calories. Combines embedded interaction, image capture, server-side inference, and CV processing.",
+                    imageSrc: "assets/projects/calglass.jpg",
+                    techTags: ["CNN", "Computer Vision", "IoT", "Embedded Systems"],
+                    links: { github: "https://github.com/Bingxi-Jiang/Calglass-Artificial-Intelligence-based-Calorie-Recognition-IoT-Glasses", demo: null, details: null, video: null }
+                },
+                {
+                    title: "Epilepsy Detection & Protector",
+                    subtitle: "Wearable seizure prediction and protection system",
+                    description: "A wearable-assisted safety system for early seizure-risk detection using sensor signals and machine learning experiments. Designed to detect possible precursors, alert family members, and help the user move to a safer area to reduce secondary injury risk.",
+                    imageSrc: "assets/projects/epilepsy-protector.jpg",
+                    techTags: ["Machine Learning", "Scikit-learn", "Sensors", "Wearable Safety"],
+                    links: { github: null, demo: null, details: null }
+                },
+                {
+                    title: "Smart Anti-Fall Crunch",
+                    subtitle: "Embedded Anti-Fall Assistive Device",
+                    description: "An assistive embedded systems project developed to help reduce fall risk for vulnerable users. Integrates low-level C programming, sensor data (MPU6050), microcontroller control, and GPS modules to detect fall tendencies and trigger protective support mechanisms.",
+                    imageSrc: "assets/projects/smart-anti-fall-crunch.jpg",
+                    techTags: ["C", "Embedded Systems", "Microcontroller", "MPU6050", "GPS"],
+                    links: { github: "https://github.com/Bingxi-Jiang/Smart-Anti-Fall-Crunch", demo: null, details: null }
+                },
+            ]
+        };
+
+        const ACTIVITIES_DATA = [
+            
+
+            {
+                title: "Chinese Union and Computer Science",
+                subtitle: "Event Organizer / Hackathon Judge",
+                description: "Organized CS-oriented events, served as a hackathon judge, and provided project ideas, feedback, and practical guidance for student teams during collaboration and build phases.",
+                imageSrc: "assets/activities/chinese-union-cs.jpg",
+                techTags: ["Hackathon", "Community Leadership", "Mentorship", "Events"],
+                links: { github: null, demo: null, details: null }
+            },
+            {
+                title: "CSSA",
+                subtitle: "Chinese Students and Scholars Association",
+                description: "Created research and advising posts for students, including course-selection suggestions, professor/lab follow-up insights, and alumni-case analysis; also supported alumni sharing and information sessions.",
+                imageSrc: "assets/activities/cssa.jpg",
+                techTags: ["Community", "Research Guidance", "Content", "Student Support"],
+                links: { github: null, demo: null, details: null }
+            },
+            {
+                title: "Video Game Development Club",
+                subtitle: "Unity Low-Poly Multiplayer FPS",
+                description: "Developed a low-poly first-person shooting game in Unity with multiplayer support as part of UCI game development club activities, collaborating on gameplay systems and iteration.",
+                imageSrc: "assets/activities/uci-game-dev-club.jpg",
+                techTags: ["Unity", "Game Development", "C#", "Multiplayer"],
+                links: { github: null, demo: null, details: null, video: null }
+            },
+            {
+                title: "VEX Robotics Club",
+                subtitle: "Founder & Captain (Over Under Season)",
+                description: "Founded and led a high-school VEX Robotics club, building major robot subsystems, contributing mechanical/chassis design, and mentoring teammates through iterative competition preparation.",
+                imageSrc: "assets/activities/vex-robotics.jpg",
+                techTags: ["Robotics", "Mechanical Design", "Leadership", "Systems Integration"],
+                links: { github: null, demo: null, details: null, video: null }
+            },
+            {
+                title: "FIRST Robotics Competition",
+                subtitle: "Captain & Mentor (Infinite Recharge / Rapid React)",
+                description: "Served as captain and mentor across FRC seasons, supporting mechanism design, team guidance, CV-based auto-aim features, and multi-camera calibration workflows for competition robotics.",
+                imageSrc: "assets/activities/frc.jpg",
+                techTags: ["FRC", "Mentorship", "Computer Vision", "Mechanical Design"],
+                links: { github: null, demo: null, details: null, video: null }
+            },        ];
+
+        /**
+         * =====================================================================
+         * RENDER LOGIC (DO NOT EDIT UNLESS CHANGING THE UI)
+         * =====================================================================
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Render Hero Section
+            document.getElementById('hero-intro').textContent = PORTFOLIO_DATA.hero.intro;
+            document.getElementById('hero-quote').textContent = PORTFOLIO_DATA.hero.quote;
+            
+            const heroSocials = document.getElementById('hero-socials');
+            if(PORTFOLIO_DATA.contact.github) heroSocials.innerHTML += `<a href="${PORTFOLIO_DATA.contact.github}" target="_blank" class="text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="GitHub"><i data-lucide="github" class="w-6 h-6"></i></a>`;
+            if(PORTFOLIO_DATA.contact.linkedin) heroSocials.innerHTML += `<a href="${PORTFOLIO_DATA.contact.linkedin}" target="_blank" class="text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>`;
+            if(PORTFOLIO_DATA.contact.email) heroSocials.innerHTML += `<a href="mailto:${PORTFOLIO_DATA.contact.email}" class="text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition-colors" aria-label="Email"><i data-lucide="mail" class="w-6 h-6"></i></a>`;
+
+            // 2. Render About Section
+            const aboutTextDiv = document.getElementById('about-text');
+            PORTFOLIO_DATA.about.forEach(paragraph => {
+                aboutTextDiv.innerHTML += `<p>${paragraph}</p>`;
+            });
+
+            // Contact Links in About
+            const aboutLinksDiv = document.getElementById('about-contact-links');
+            const createContactChip = (icon, text, link, colorClass) => {
+                if(!link) return '';
+                const isEmail = link.includes('@');
+                const href = isEmail ? `mailto:${link}` : link;
+                const target = isEmail ? '' : 'target="_blank"';
+                
+                // WeChat special handling (might not be a link, just text to copy)
+                if (text === 'WeChat') {
+                    return `
+                    <div class="flex items-center px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm cursor-help group relative">
+                        <i data-lucide="${icon}" class="w-4 h-4 mr-2 ${colorClass}"></i>
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">WeChat</span>
+                        <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                            ID: ${link}
+                        </div>
+                    </div>`;
+                }
+
+                return `
+                <a href="${href}" ${target} class="flex items-center px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-${colorClass.split('-')[1]}-500 transition-all">
+                    <i data-lucide="${icon}" class="w-4 h-4 mr-2 ${colorClass}"></i>
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">${text}</span>
+                </a>`;
+            };
+
+            aboutLinksDiv.innerHTML += createContactChip('github', 'GitHub', PORTFOLIO_DATA.contact.github, 'text-slate-800 dark:text-white');
+            aboutLinksDiv.innerHTML += createContactChip('linkedin', 'LinkedIn', PORTFOLIO_DATA.contact.linkedin, 'text-blue-600');
+            aboutLinksDiv.innerHTML += createContactChip('mail', 'Email', PORTFOLIO_DATA.contact.email, 'text-red-500');
+            if (PORTFOLIO_DATA.contact.wechat) {
+                aboutLinksDiv.innerHTML += createContactChip('message-circle', 'WeChat', PORTFOLIO_DATA.contact.wechat, 'text-green-500');
+            }
+
+            document.getElementById('resume-download-btn').href = PORTFOLIO_DATA.assets.resumePdfPath;
+
+            // Skills
+            const skillsContainer = document.getElementById('skills-container');
+            PORTFOLIO_DATA.skills.forEach(skillGroup => {
+                const chips = skillGroup.items.map(item => 
+                    `<span class="px-2.5 py-1 text-[11px] font-medium bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm">${item}</span>`
+                ).join('');
+                
+                skillsContainer.innerHTML += `
+                    <div>
+                        <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">${skillGroup.category}</h4>
+                        <div class="flex flex-wrap gap-2">${chips}</div>
+                    </div>
+                `;
+            });
+
+            // 3. Render Resume Section
+            
+            // Timeline (Gantt-style desktop + compact mobile list)
+            const timelineLegend = document.getElementById('timeline-legend');
+            const timelineGanttChart = document.getElementById('timeline-gantt-chart');
+            const timelineMobileList = document.getElementById('timeline-mobile-list');
+
+            const TIMELINE_TYPE_META = {
+                education: {
+                    chip: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+                    bar: 'linear-gradient(90deg, #84cc16, #a3e635)'
+                },
+                research: {
+                    chip: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+                    bar: 'linear-gradient(90deg, #fb7185, #f87171)'
+                },
+                industry: {
+                    chip: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+                    bar: 'linear-gradient(90deg, #38bdf8, #60a5fa)'
+                },
+                other: {
+                    chip: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+                    bar: 'linear-gradient(90deg, #94a3b8, #cbd5e1)'
+                }
+            };
+
+            const formatYM = (ym) => {
+                if (!ym) return 'Present';
+                const [y, m] = ym.split('-').map(Number);
+                return `${String(m).padStart(2, '0')}/${y}`;
+            };
+
+            const parseYM = (ym) => {
+                if (!ym) return null;
+                const [y, m] = ym.split('-').map(Number);
+                return { y, m };
+            };
+
+            const monthIndex = (ymObj) => (ymObj.y * 12) + (ymObj.m - 1);
+
+            const currentDate = new Date();
+            const currentYM = { y: currentDate.getFullYear(), m: currentDate.getMonth() + 1 };
+            const currentMonthIdx = monthIndex(currentYM);
+
+            const timelineItems = PORTFOLIO_DATA.timeline.map(item => {
+                const startObj = parseYM(item.start);
+                const endObj = item.end ? parseYM(item.end) : null;
+                return {
+                    ...item,
+                    startObj,
+                    endObj,
+                    startIdx: monthIndex(startObj),
+                    endIdx: endObj ? monthIndex(endObj) : currentMonthIdx + 2
+                };
+            });
+
+            // Legend
+            if (timelineLegend) {
+                const legendTypes = ['education', 'research', 'industry'];
+                timelineLegend.innerHTML = legendTypes.map(type => `
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${TIMELINE_TYPE_META[type].chip}">
+                        <span class="w-2 h-2 rounded-full mr-2" style="background:${TIMELINE_TYPE_META[type].bar};"></span>
+                        ${type}
+                    </span>
+                `).join('');
+            }
+
+            // Desktop timesheet-style chart (reference-inspired)
+            if (timelineGanttChart && timelineItems.length) {
+                const minStart = Math.min(...timelineItems.map(i => i.startIdx));
+                const maxEnd = Math.max(...timelineItems.map(i => i.endIdx), currentMonthIdx + 1);
+
+                const startYear = Math.floor(minStart / 12);
+                const endYear = Math.ceil((maxEnd + 1) / 12);
+
+                const pxPerMonth = 11.5; // close to the reference screenshot density
+                const yearWidth = pxPerMonth * 12;
+                const leftPad = 14;
+                const rightPad = 22;
+                const rowHeight = 36;
+                const rowGap = 2;
+                const rowsHeight = timelineItems.length * (rowHeight + rowGap);
+                const chartWidth = leftPad + rightPad + ((endYear - startYear + 1) * yearWidth);
+
+                timelineGanttChart.style.width = `${chartWidth}px`;
+                timelineGanttChart.style.height = `${42 + rowsHeight}px`;
+
+                const rangeStart = (startYear * 12);
+                const toX = (monthIdx) => leftPad + ((monthIdx - rangeStart) * pxPerMonth);
+                const yearToX = (year) => leftPad + ((year - startYear) * yearWidth);
+
+                const bubbleClassMap = {
+                    education: 'bubble-edu',
+                    industry: 'bubble-work',
+                    research: 'bubble-research',
+                    other: 'bubble-activity'
+                };
+
+                const rowsHtml = timelineItems.map((item, rowIndex) => {
+                    const bubbleClass = bubbleClassMap[item.type] || 'bubble-activity';
+                    const barLeft = toX(item.startIdx);
+                    const barWidth = Math.max(20, ((item.endIdx - item.startIdx + 1) * pxPerMonth));
+                    const rowTop = rowIndex * (rowHeight + rowGap);
+                    const rangeText = `${formatYM(item.start)} - ${item.end ? formatYM(item.end) : 'Present'}`;
+                    const labelText = item.org ? `${item.label} · ${item.org}` : item.label;
+
+                    const rightSpace = chartWidth - (barLeft + barWidth) - 14;
+                    const needsLeftInfo = rightSpace < 210 || item.forceLabelLeft;
+
+                    if (needsLeftInfo) {
+                        const rightPx = Math.max(0, chartWidth - barLeft + 4);
+                        return `
+                            <li style="top:${rowTop}px;">
+                                <span class="info-left" style="right:${rightPx}px;">
+                                    <span class="label">${labelText}</span>
+                                    <span class="date">${rangeText}</span>
+                                </span>
+                                <span class="bubble ${bubbleClass}" data-duration="${Math.max(1, Math.round((item.endIdx - item.startIdx + 1)))}" style="margin-left:${barLeft}px; width:${barWidth}px;"></span>
+                            </li>
+                        `;
+                    }
+
+                    return `
+                        <li style="top:${rowTop}px;">
+                            <span class="bubble ${bubbleClass}" data-duration="${Math.max(1, Math.round((item.endIdx - item.startIdx + 1)))}" style="margin-left:${barLeft}px; width:${barWidth}px;"></span>
+                            <span class="date" style="margin-left:${barLeft + barWidth + 8}px;">${rangeText}</span>
+                            <span class="label">${labelText}</span>
+                        </li>
+                    `;
+                }).join('');
+
+                const yearSections = Array.from({ length: (endYear - startYear + 1) }, (_, k) => `<section>${startYear + k}</section>`).join('');
+                const indicatorLeft = toX(currentMonthIdx) + (pxPerMonth / 2);
+
+                const timesheetHtml = `
+                    <div class="timesheet white" style="--year-col-width:${yearWidth}px; --timesheet-data-height:${rowsHeight}px; padding-left:${leftPad}px; padding-right:${rightPad}px;">
+                        <div class="scale">
+                            <div class="indicator" style="left:${indicatorLeft}px; visibility: visible;"></div>
+                            ${yearSections}
+                        </div>
+                        <ul class="data" style="height:${rowsHeight}px;">
+                            ${rowsHtml}
+                        </ul>
+                    </div>
+                `;
+
+                timelineGanttChart.innerHTML = timesheetHtml;
+            }
+
+            // Mobile fallback list
+            if (timelineMobileList) {
+                timelineMobileList.innerHTML = timelineItems.map(item => {
+                    const meta = TIMELINE_TYPE_META[item.type] || TIMELINE_TYPE_META.other;
+                    const rangeText = `${formatYM(item.start)} - ${item.end ? formatYM(item.end) : 'Present'}`;
+                    return `
+                        <li class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/70 p-4">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <h4 class="text-sm font-semibold text-slate-800 dark:text-slate-100 leading-tight">${item.label}</h4>
+                                    ${item.org ? `<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">${item.org}</p>` : ''}
+                                </div>
+                                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wide ${meta.chip}">
+                                    ${item.type}
+                                </span>
+                            </div>
+                            <div class="mt-3">
+                                <div class="h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                                    <div class="h-full rounded-full" style="width:100%; background:${meta.bar};"></div>
+                                </div>
+                                <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">${rangeText}</p>
+                            </div>
+                        </li>
+                    `;
+                }).join('');
+            }
+
+            // Education
+            const eduContainer = document.getElementById('education-container');
+            PORTFOLIO_DATA.education.forEach(edu => {
+                const badges = edu.badges.map(b => `<span class="px-2 py-1 text-xs font-medium bg-brand-50 text-brand-700 dark:bg-brand-900/20 dark:text-brand-300 rounded">${b}</span>`).join('');
+                eduContainer.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-brand-50 dark:bg-brand-900/10 rounded-bl-full -z-0 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-start gap-4 mb-3">
+                                <div class="w-14 h-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+                                    ${edu.logoSrc ? `<img src="${edu.logoSrc}" alt="${edu.logoAlt || edu.institution}" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\"text-xs text-slate-400\"></span>` : `<span class="text-xs text-slate-400"></span>`}
+                                </div>
+                                <div class="min-w-0">
+                                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-0">${edu.institution}</h4>
+                                </div>
+                            </div>
+                            <p class="text-brand-600 dark:text-brand-400 font-medium mb-4">${edu.degree}</p>
+                            
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 text-sm text-slate-600 dark:text-slate-400">
+                                <span class="flex items-center"><i data-lucide="calendar" class="w-4 h-4 mr-1"></i> Exp. ${edu.expectedGraduation}</span>
+                                <span class="flex items-center"><i data-lucide="award" class="w-4 h-4 mr-1"></i> GPA: ${edu.gpa}</span>
+                            </div>
+                            
+                            <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">${edu.description}</p>
+                            <div class="flex flex-wrap gap-2">${badges}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Experience
+            const expContainer = document.getElementById('experience-container');
+            PORTFOLIO_DATA.experience.forEach((exp, idx) => {
+                const bullets = exp.bullets.map(b => `<li class="relative pl-4 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-brand-400 before:rounded-full">${b}</li>`).join('');
+                const tags = exp.tags.map(t => `<span class="px-2.5 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-md">${t}</span>`).join('');
+                
+                expContainer.innerHTML += `
+                    <div class="relative pl-6 sm:pl-8 pb-8 group">
+                        <!-- Timeline Node Dot -->
+                        <div class="absolute left-[-32.5px] top-1 w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-2 border-brand-400 group-hover:border-brand-600 transition-colors"></div>
+                        
+                        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all duration-300 group-hover:-translate-y-1">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-2">
+                                <div class="flex items-start gap-3 min-w-0">
+                                    <div class="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+                                        ${exp.logoSrc ? `<img src="${exp.logoSrc}" alt="${exp.logoAlt || exp.organization}" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\"text-[10px] text-slate-400\"></span>` : `<span class="text-[10px] text-slate-400"></span>`}
+                                    </div>
+                                    <div>
+                                    <h4 class="text-lg font-bold text-slate-900 dark:text-white">${exp.role}</h4>
+                                    <p class="text-brand-600 dark:text-brand-400 font-medium">${exp.organization}</p>
+                                </div>
+                                </div>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                                    <i data-lucide="calendar" class="w-3 h-3 mr-1"></i> ${exp.dates}
+                                </span>
+                            </div>
+                            
+                            <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2 mb-4 leading-relaxed">
+                                ${bullets}
+                            </ul>
+                            
+                            <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-50 dark:border-slate-800/50">
+                                ${tags}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // 4. Render Projects Section
+            const projectsGrid = document.getElementById('projects-grid');
+            const activitiesGrid = document.getElementById('activities-grid');
+            
+            // Generate a robust placeholder URL function
+            const getValidImageSrc = (src, title) => {
+                if (!src || src.includes('placeholder') || src === 'assets/projects/project.jpg') {
+                    // Generate a visually pleasing placeholder based on title
+                    const encodedTitle = encodeURIComponent(title);
+                    return `https://ui-avatars.com/api/?name=${encodedTitle}&background=1e293b&color=3b82f6&size=512&font-size=0.15&length=20`;
+                }
+                return src;
+            };
+
+            PORTFOLIO_DATA.projects
+                .filter(project => !["Bioinformatics Workflow Agent", "VEX Robotics Club", "FIRST Robotics Competition"].includes(project.title))
+                .forEach((project, projectIndex) => {
+                const tags = project.techTags.map(t => `<span class="px-2 py-1 text-[10px] font-semibold tracking-wider uppercase bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300 rounded">${t}</span>`).join('');
+                const imgSrc = getValidImageSrc(project.imageSrc, project.title);
+                const descId = `project-desc-${projectIndex}`;
+                const isLongDescription = (project.description || '').trim().length > 220;
+                
+                // Construct links
+                let linksHTML = '';
+                const linkIconMap = {
+                    github: { icon: 'github', label: 'Code' },
+                    demo: { icon: 'external-link', label: 'Demo' },
+                    details: { icon: 'info', label: 'Details' },
+                    paper: { icon: 'file-text', label: 'Paper' },
+                    video: { icon: 'video', label: 'Video' }
+                };
+
+                for (const [key, url] of Object.entries(project.links)) {
+                    if (url) {
+                        linksHTML += `
+                            <a href="${url}" target="_blank" class="inline-flex items-center text-xs font-medium text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors">
+                                <i data-lucide="${linkIconMap[key].icon}" class="w-4 h-4 mr-1"></i> ${linkIconMap[key].label}
+                            </a>
+                        `;
+                    }
+                }
+                
+                const hasLinks = linksHTML.trim() !== '';
+
+                projectsGrid.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                        
+                        <!-- Image Container with aspect ratio and fallback handling -->
+                        <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                            <img src="${imgSrc}" 
+                                 alt="${project.title}" 
+                                 onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(project.title)}&background=1e293b&color=3b82f6&size=512&font-size=0.15&length=20';"
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="mb-2">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${project.title}</h4>
+                                ${project.subtitle ? `<p class="text-xs font-medium text-brand-600 dark:text-brand-400 mt-1">${project.subtitle}</p>` : ''}
+                            </div>
+                            
+                            <div class="mb-6 flex-1">
+
+                            
+                                <p id="${descId}" class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed ${isLongDescription ? 'line-clamp-4' : ''}">
+
+                            
+                                    ${project.description}
+
+                            
+                                </p>
+
+                            
+                                ${isLongDescription ? `
+
+                            
+                                    <button type="button"
+
+                            
+                                            class="project-readmore-btn mt-2 inline-flex items-center text-sm font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 transition-colors"
+
+                            
+                                            data-target="${descId}"
+
+                            
+                                            aria-expanded="false">
+
+                            
+                                        <span class="project-readmore-label">Read more</span>
+
+                            
+                                        <i data-lucide="chevron-down" class="w-4 h-4 ml-1 project-readmore-icon transition-transform duration-200"></i>
+
+                            
+                                    </button>
+
+                            
+                                ` : ''}
+
+                            
+                            </div>
+
+                            
+                            
+
+                            
+                            <div class="flex flex-wrap gap-1.5 mb-5 mt-auto">
+
+                            
+                                ${tags}
+
+                            
+                            </div>
+
+                            
+                            
+
+                            
+                            <!-- Links Footer -->
+
+                            
+                            ${hasLinks ? `
+
+                            
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-4 items-center">
+
+                            
+                                ${linksHTML}
+
+                            
+                            </div>
+
+                            
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Activities Section (same card UI)
+            if (activitiesGrid) {
+                ACTIVITIES_DATA.forEach((project, projectIndex) => {
+                    const tags = project.techTags.map(t => `<span class="px-2 py-1 text-[10px] font-semibold tracking-wider uppercase bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300 rounded">${t}</span>`).join('');
+                    const imgSrc = getValidImageSrc(project.imageSrc, project.title);
+                    const descId = `activity-desc-${projectIndex}`;
+                    const isLongDescription = (project.description || '').trim().length > 220;
+                    let linksHTML = '';
+                    const linkIconMap = { github: { icon: 'github', label: 'Code' }, demo: { icon: 'external-link', label: 'Demo' }, details: { icon: 'info', label: 'Details' }, paper: { icon: 'file-text', label: 'Paper' }, video: { icon: 'video', label: 'Video' } };
+                    for (const [key, url] of Object.entries(project.links || {})) {
+                        if (url) {
+                            linksHTML += `<a href="${url}" target="_blank" class="inline-flex items-center text-xs font-medium text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors"><i data-lucide="${linkIconMap[key].icon}" class="w-4 h-4 mr-1"></i> ${linkIconMap[key].label}</a>`;
+                        }
+                    }
+                    const hasLinks = linksHTML.trim() !== '';
+                    activitiesGrid.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                        <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                            <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(project.title)}&background=1e293b&color=3b82f6&size=512&font-size=0.15&length=20';" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="mb-2"><h4 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${project.title}</h4>${project.subtitle ? `<p class="text-xs font-medium text-brand-600 dark:text-brand-400 mt-1">${project.subtitle}</p>` : ''}</div>
+                            <div class="mb-6 flex-1"><p id="${descId}" class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed ${isLongDescription ? 'line-clamp-4' : ''}">${project.description}</p>${isLongDescription ? `<button type="button" class="project-readmore-btn mt-2 inline-flex items-center text-sm font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 transition-colors" data-target="${descId}" aria-expanded="false"><span class="project-readmore-label">Read more</span><i data-lucide="chevron-down" class="w-4 h-4 ml-1 project-readmore-icon transition-transform duration-200"></i></button>` : ''}</div>
+                            <div class="flex flex-wrap gap-1.5 mb-5 mt-auto">${tags}</div>
+                            ${hasLinks ? `<div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-4 items-center">${linksHTML}</div>` : ''}
+                        </div>
+                    </div>`;
+                });
+            }
+
+            // Project description Read more / Show less toggle
+            document.addEventListener('click', (event) => {
+                const btn = event.target.closest('.project-readmore-btn');
+                if (!btn) return;
+
+                const targetId = btn.dataset.target;
+                const descEl = document.getElementById(targetId);
+                if (!descEl) return;
+
+                const labelEl = btn.querySelector('.project-readmore-label');
+                const iconEl = btn.querySelector('.project-readmore-icon');
+                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+                if (isExpanded) {
+                    descEl.classList.add('line-clamp-4');
+                    btn.setAttribute('aria-expanded', 'false');
+                    if (labelEl) labelEl.textContent = 'Read more';
+                    if (iconEl) iconEl.classList.remove('rotate-180');
+                } else {
+                    descEl.classList.remove('line-clamp-4');
+                    btn.setAttribute('aria-expanded', 'true');
+                    if (labelEl) labelEl.textContent = 'Show less';
+                    if (iconEl) iconEl.classList.add('rotate-180');
+                }
+            });
+
+            // Initialize Lucide Icons after generating HTML
+            lucide.createIcons();
+
+            // Setup current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            /**
+             * =====================================================================
+             * INTERACTIONS & ANIMATIONS LOGIC
+             * =====================================================================
+             */
+
+            // Scroll Animation Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Animate only once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenu.classList.contains('hidden') ? 'menu' : 'x';
+                mobileBtn.innerHTML = `<i data-lucide="${icon}" class="w-6 h-6"></i>`;
+                lucide.createIcons();
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileBtn.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
+                    lucide.createIcons();
+                });
+            });
+
+            // Dark Mode Logic
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
+            
+            // Check system preference on load
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            const toggleTheme = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            };
+
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            themeToggleBtnMobile.addEventListener('click', toggleTheme);
+        });
+    </script>
+</body>
+</html>
