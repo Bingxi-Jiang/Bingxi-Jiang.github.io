@@ -650,7 +650,7 @@
                     institution: "University of California, Irvine",
                     degree: "Double Major: Computer Science + Business Information Management",
                     expectedGraduation: "June 2027", // EDIT THIS
-                    gpa: "3.725 / 4.0", // EDIT THIS
+                    gpa: "3.776 / 4.0", // EDIT THIS
                     description: "Focused on machine learning, large language model applications, intelligent systems, and human-centered AI tools. Balancing rigorous academic coursework with active research lab involvement and engineering-focused product prototyping.",
                     badges: ["AI/ML Focus", "Dean's Honor List"],
                     logoSrc: "assets/logos/uci.png",
@@ -745,12 +745,28 @@
             projects: [
                 // === AI / LLM / Software ===
                 {
+                    title: "VisaLens",
+                    subtitle: "ATS & Sponsorship Analysis Extension",
+                    description: "A Manifest V3 browser extension that detects job pages and surfaces sponsorship, work-authorization, and degree requirements directly in-page. Combines rule-based extraction with Gemini to produce ATS-style match scores, blocker flags, and fit verdicts from job descriptions. Includes a schema-driven PDF resume parser that converts resumes into structured profiles and supports switching across multiple resume versions for targeted applications.",
+                    imageSrc: "assets/projects/visalens.jpg",
+                    techTags: ["Javascript", "Manifest V3", "Gemini API", "Json Schema", "Document Parsing"],
+                    links: { github: null, demo: null, details: null }
+                },
+                {
+                    title: "SousMouse",
+                    subtitle: "Real-Time AI Cooking Copilot",
+                    description: "A FastAPI-based multimodal cooking assistant that generates structured step-by-step recipes with Gemini and maintains per-session cooking state across recipe planning and visual guidance. Implements both periodic frame analysis over HTTP and WebSocket-based Gemini Live streaming for real-time cooking assistance, paired with a camera- and voice-enabled web interface for hands-busy cooking scenarios. Containerized with Docker and deployed on Google Cloud Run with config-driven model selection, health checks, and fallback handling for unstable model responses.",
+                    imageSrc: "assets/projects/sousmouse.jpg",
+                    techTags: ["FastAPI", "Gemini Live", "WebSocket", "Docker", "Google Cloud"],
+                    links: { github: null, demo: null, details: null }
+                },
+                {
                     title: "FlowCrusade",
                     subtitle: "ADHD-Friendly AI Productivity System",
                     description: "A human-centered productivity system designed to reduce task initiation friction for users with ADHD-like challenges. Uses AI to break large tasks into smaller actionable subtasks, supports recursive re-generation, and integrates focus monitoring with a modern interactive UI.",
                     imageSrc: "assets/projects/flowcrusade.jpg",
                     techTags: ["Gemini Live API", "Prompt Engineering", "React", "Node.js", "Tailwind"],
-                    links: { github: null, demo: null, details: null }
+                    links: { github: "https://github.com/Bingxi-Jiang/Flow-Crusade_frontend", demo: null, details: null }
                 },
                 {
                     title: "Artified Self",
@@ -877,8 +893,8 @@
             document.getElementById('hero-quote').textContent = PORTFOLIO_DATA.hero.quote;
             
             const heroSocials = document.getElementById('hero-socials');
-            if(PORTFOLIO_DATA.contact.github) heroSocials.innerHTML += `<a href="${PORTFOLIO_DATA.contact.github}" target="_blank" class="text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="GitHub"><i data-lucide="github" class="w-6 h-6"></i></a>`;
-            if(PORTFOLIO_DATA.contact.linkedin) heroSocials.innerHTML += `<a href="${PORTFOLIO_DATA.contact.linkedin}" target="_blank" class="text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>`;
+            if(PORTFOLIO_DATA.contact.github) heroSocials.innerHTML += `<a href="${PORTFOLIO_DATA.contact.github}" target="_blank" class="text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="GitHub"><i data-lucide-name="github" class="w-6 h-6 text-black dark:text-white"></i></a>`;
+            if(PORTFOLIO_DATA.contact.linkedin) heroSocials.innerHTML += `<a href="${PORTFOLIO_DATA.contact.linkedin}" target="_blank" class="text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" aria-label="LinkedIn"><i data-lucide-name="linkedin" class="w-6 h-6 text-blue-600"></i></a>`;
             if(PORTFOLIO_DATA.contact.email) heroSocials.innerHTML += `<a href="mailto:${PORTFOLIO_DATA.contact.email}" class="text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition-colors" aria-label="Email"><i data-lucide="mail" class="w-6 h-6"></i></a>`;
 
             // 2. Render About Section
