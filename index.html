@@ -603,11 +603,11 @@
             // Files & Assets
             assets: {
                 // EDIT THIS: Path to your actual resume PDF
-                resumePdfPath: "assets/resume/Paul_Resume_MLE.pdf" 
+                resumePdfPath: "assets/resume/Paul_Resume_SWE.pdf" 
             },
 
             contact: {
-                email: "pauljiang137@gmail.com",
+                email: "pauljiang817@gmail.com",
                 github: "https://github.com/Bingxi-Jiang", // EDIT THIS
                 linkedin: "https://www.linkedin.com/in/bingxi-jiang/", 
                 wechat: "PaulJiang137" // EDIT THIS
@@ -642,7 +642,8 @@
                 { label: "Ping An Technology", org: "CV Algorithm Engineer", start: "2025-06", end: "2025-09", type: "industry" },
                 { label: "Fresh Road", org: "Software Engineer", start: "2025-09", end: "2025-12", type: "industry" },
                 { label: "Relational Cognition Lab, UCI", org: "Research Assistant", start: "2026-01", end: null, type: "research", active: true },
-                { label: "CS/Xie Lab, UCI", org: "Research Intern", start: "2026-02", end: null, type: "research", active: true }
+                { label: "CS/Xie Lab, UCI", org: "Research Intern", start: "2026-02", end: "2026-04", type: "research" },
+                { label: "GTechFin Inc", org: "Software Engineer Intern", start: "2026-04", end: "2026-06", type: "industry" }
             ],
 
             education: [
@@ -659,13 +660,26 @@
             ],
 
             experience: [
-                
+                {
+                    role: "Software Engineer Intern",
+                    organization: "GTechFin Inc",
+                    logoSrc: "assets/logos/gtechfin.png",
+                    logoAlt: "GTechFin Inc logo",
+                    dates: "April 2026 – June 2026",
+                    bullets: [
+                        "Built an agentic marketing platform automating TikTok workflows from trend discovery and scriptwriting to AI video rendering.",
+                        "Reduced video production cycle by 89%, compressing manual workflow from ~3 hours of editing to ~20 minutes of automated generation.",
+                        "Connected Apify, Claude, and HeyGen to discover top videos, extract creative patterns, and generate UGC-style AI marketing videos."
+                    ],
+                    tags: ["Agentic AI", "Claude API", "HeyGen", "Apify", "TikTok API", "Automation"]
+                },
+
                 {
                     role: "Research Intern",
                     organization: "UCI CS/Xie Lab",
                     logoSrc: "assets/logos/uci-xie-lab.png",
                     logoAlt: "UCI CS/Xie Lab logo",
-                    dates: "Feb 2026 – Present",
+                    dates: "Feb 2026 – April 2026",
                     bullets: [
                         "Developing an AI workflow agent to help bioinformatics researchers perform data analysis without needing to write code.",
                         "Designing guided workflow generation and tool-usage assistance to lower computational barriers for domain users.",
@@ -745,6 +759,30 @@
             projects: [
                 // === AI / LLM / Software ===
                 {
+                    title: "LongevityLLM-Benchmark",
+                    subtitle: "Scientific LLM Evaluation for Mouse Longevity Reasoning",
+                    description: "A benchmark evaluating LLM reasoning quality on mouse longevity science across seven dimensions: genetics, strain biology, lifespan direction, MP term generation, pairwise longevity, regression, and sex effects. Includes an offline reasoning scorer that checks biological grounding — not just final answer correctness — using data from MGI and Mouse Phenome Database. Tests OpenAI, Gemini, Claude, and domain-specific models.",
+                    imageSrc: "assets/projects/longevity-llm-benchmark.jpg",
+                    techTags: ["Python", "LLM Evaluation", "Scikit-learn", "Claude API", "Bioinformatics"],
+                    links: { github: "https://github.com/Bingxi-Jiang/LongevityLLM-Benchmark", demo: null, details: null }
+                },
+                {
+                    title: "Noted",
+                    subtitle: "Real-Time AI Meeting & Lecture Note System",
+                    description: "A full-stack web app that captures live audio and screen visuals to generate structured, searchable notes in real time. Uses WebSocket audio streaming with Deepgram for transcription and Gemini for AI note generation in Cornell or outline formats. Supports speaker diarization for meetings, concept detection for lectures, and exports to PDF/DOCX with optional Google Drive integration.",
+                    imageSrc: "assets/projects/noted.jpg",
+                    techTags: ["Node.js", "WebSocket", "Deepgram", "Gemini API", "Web Audio API", "SQLite"],
+                    links: { github: "https://github.com/Bingxi-Jiang/Noted", demo: null, details: null }
+                },
+                {
+                    title: "OnchainNarrative",
+                    subtitle: "AI-Powered Web3 Wallet Behavioral Analyzer",
+                    description: "Transforms raw blockchain activity into interpretable behavioral narratives. Classifies wallets into personas (LP Farmer, Swing Trader, Airdrop Explorer) using onchain transaction patterns, then generates human-readable profiles with security recommendations including risky token approval detection and revoke transaction generation. Supports Ethereum, Optimism, Polygon, Base, Arbitrum, and Avalanche.",
+                    imageSrc: "assets/projects/onchain-narrative.jpg",
+                    techTags: ["React", "Express.js", "Web3", "OpenAI", "Zerion API", "GoPlus"],
+                    links: { github: "https://github.com/Bingxi-Jiang/OnchainNarrative", demo: null, details: null }
+                },
+                {
                     title: "VisaLens",
                     subtitle: "ATS & Sponsorship Analysis Extension",
                     description: "A Manifest V3 browser extension that detects job pages and surfaces sponsorship, work authorization, and degree requirements in-page. Combines rule-based extraction with Gemini to generate ATS-style match scores, blocker flags, and fit verdicts. Includes a schema-driven PDF resume parser with support for multiple resume profiles.",
@@ -761,12 +799,12 @@
                     links: { github: "https://github.com/Bingxi-Jiang/SousMouse-Your-real-time-AI-cooking-copilot", demo: null, details: null }
                 },
                 {
-                    title: "FlowCrusade",
+                    title: "FocusTrail",
                     subtitle: "ADHD-Friendly AI Productivity System",
                     description: "A human-centered productivity system designed to reduce task initiation friction for users with ADHD-like challenges. Uses AI to break large tasks into smaller actionable subtasks, supports recursive re-generation, and integrates focus monitoring with a modern interactive UI.",
                     imageSrc: "assets/projects/flowcrusade.jpg",
                     techTags: ["Gemini Live API", "Prompt Engineering", "React", "Node.js", "Tailwind"],
-                    links: { github: "https://github.com/Bingxi-Jiang/Flow-Crusade_frontend", demo: null, details: null }
+                    links: { github: "https://github.com/PST-Protocol/FocusTrail", demo: null, details: null }
                 },
                 {
                     title: "Artified Self",
@@ -774,15 +812,15 @@
                     description: "A multimodal personal analytics system that captures and structures daily digital activity into time-based narratives, enabling users to review how they spend their time and generate reflective summaries about productivity, habits, and digital behavior. Designed as a human-centered self-tracking and life-logging assistant with AI-assisted analysis.",
                     imageSrc: "assets/projects/artified-self.jpg",
                     techTags: ["Multimodal AI", "Data Pipelines", "LLMs", "Time-series Analysis"],
-                    links: { github: "https://github.com/Bingxi-Jiang/Mosaic-Piece-together-your-life", demo: null, details: null }
+                    links: { github: "https://github.com/Bingxi-Jiang/Artified-Self", demo: null, details: null }
                 },
                 {
-                    title: "Syllabus-to-Schedule",
+                    title: "Course Helper",
                     subtitle: "LLM-Powered Academic Schedule ETL",
                     description: "An intelligent academic planning tool that extracts deadlines, schedules, and course logistics from messy syllabus documents (including PDFs), structures them into calendar-ready events, and helps students build a more reliable, personalized planning workflow beyond standard LMS calendars.",
                     imageSrc: "assets/projects/syllabus-to-schedule.jpg",
                     techTags: ["LLM Extraction", "ETL", "JSON Schema", "Document Parsing"],
-                    links: { github: null, demo: null, details: null }
+                    links: { github: null, demo: "www.course-helper.com", details: null }
                 },
                 {
                     title: "Sora Persona Engine",
