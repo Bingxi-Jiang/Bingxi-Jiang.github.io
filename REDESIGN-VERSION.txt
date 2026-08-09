@@ -1,4 +1,10 @@
-Bingxi Jiang GitHub Pages Redesign v4
+Bingxi Jiang GitHub Pages Redesign v5
+
+Homepage updates:
+- Field Notes covers use a 3:4 ratio.
+- Every Field Notes card links to its corresponding detail page.
+- Experience cards use equal grid tracks and aligned content zones.
+- Project media keeps the requested 2:1 ratio.
 
 Featured project order:
 1. Noted

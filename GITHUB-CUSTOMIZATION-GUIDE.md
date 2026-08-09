@@ -8,8 +8,8 @@
 
 | 页面 | 文件夹 | 推荐比例 |
 |---|---|---|
-| Home → Selected work | `media/projects/home/` | 1.85:1（横向） |
-| Work → Project archive | `media/projects/archive/` | 1.85:1（横向） |
+| Home → Selected work | `media/projects/home/` | 2:1（横向） |
+| Work → Project archive | `media/projects/archive/` | 2:1（横向） |
 
 主页 Featured Projects 的四张封面：
 
@@ -20,7 +20,7 @@
 
 Full Archive 的对应图片在 `media/projects/archive/`。例如，只想修改 Archive 的 Noted，就替换 `media/projects/archive/noted.jpg`；主页不会变化。
 
-建议输出尺寸：1850×1000、1665×900 或其他 1.85:1 横图。界面会完整显示图片，不需要把 16:9 图片强行裁成竖图。
+建议输出尺寸：2000×1000、1600×800 或其他 2:1 横图。界面会完整显示图片，不需要把 16:9 图片强行裁成竖图。
 
 ## 2. Experience 公司 Logo
 
@@ -67,7 +67,7 @@ Field Notes 索引页和每篇详情页使用：
 - `berkeley-ai-hackathon.jpg`
 - `streamlit-first-place.jpg`（PyCon 详情页第二张图与主页 Award）
 
-主页小卡建议 4:3；详情页主图可保留原始比例，但若希望视觉更稳定，建议使用 16:9 或 3:2 横图。
+主页小卡现在使用 3:4 竖向比例，并且整张卡片都可以点击进入对应的 Field Notes 详情页。详情页主图可保留原始比例，但若希望视觉更稳定，建议使用 16:9 或 3:2 横图。
 
 ## 4. 如果要调整裁切位置
 
@@ -84,4 +84,3 @@ Field Notes 索引页和每篇详情页使用：
 ## 5. GitHub Pages 上传
 
 把 ZIP 解压后，将解压目录里的全部文件上传到 GitHub Pages 所使用的仓库根目录。必须保留根目录的 `.nojekyll` 文件。主页文件是 `index.html`，不要额外套一层文件夹。
-
