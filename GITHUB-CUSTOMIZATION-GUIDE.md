@@ -28,18 +28,42 @@ Full Archive 的对应图片在 `media/projects/archive/`。例如，只想修�
 
 `media/logos/`
 
-当前网页把 Logo 当作低透明度的大型品牌水印融入卡片，不使用方框头像。直接覆盖同名文件即可更新：
+新版使用全彩的自适应品牌签名，不再灰度化，也不降低透明度，更不会强制放进 1:1 方框。网页会根据每个品牌的真实比例分别处理竖标、紧凑图标、横向 wordmark 与圆形校徽。Home 与 Work 页面共用同一套显示规则。
 
-- `dassault-systemes.svg`
+直接覆盖同名文件即可更新：
+
+- `dassault-systemes.png`
 - `gtechfin.png`
 - `fresh-road.png`
 - `ping-an.png`
+- `uci.png`
 - `uci-relational-cognition-lab.png`
 - `uci-xie-lab.png`
 - `deepem-lab.png`
 - `cmu.png`
 
-Logo 建议使用透明背景、横向 wordmark 或干净的 1:1 标志。页面会自动灰度化并降低透明度。`dassault-systemes.svg` 目前是可替换的占位标记。
+不需要转换为 SVG。PNG 可以保留原本的长宽比与品牌色，建议尽量使用透明背景。分辨率不必完全一致，只要可见图形本身清楚即可。
+
+显示尺寸在根目录的 `v6-overrides.css` 中调整。搜索：
+
+`Each signature gets a canvas suited to its actual artwork ratio`
+
+例如 Fresh Road 当前使用：
+
+```css
+.company-logo:has(img[src*="fresh-road"]) {
+  --logo-width: 216px;
+  --logo-height: 52px;
+}
+```
+
+改 `--logo-width` 与 `--logo-height` 就能单独改变这个品牌的显示空间，不会影响其他 Logo。
+
+特殊情况：
+
+- `ping-an.png` 原图是 2047×2047，但有效 Logo 位于中下部。CSS 已经补偿透明留白，不需要手工裁图。
+- `deepem-lab.png` 与 `uci-relational-cognition-lab.png` 的棋盘格已经烘焙进图片，CSS 会把它们裁成圆章，隐藏四角棋盘格。
+- 如果以后把 Ping An 换成已经紧密裁好的新图，请同时删除 `v6-overrides.css` 中 `Ping An ships on a square canvas` 下的特殊变换规则。
 
 ## 3. Homepage Field Notes 与详情页图片已分开
 

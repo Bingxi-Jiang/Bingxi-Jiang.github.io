@@ -1,0 +1,236 @@
+/* GitHub Pages v5 targeted layout fixes. */
+
+/* Preserve the requested 2:1 project media ratio from the latest revision. */
+.featured-media,
+.project-archive-image {
+  aspect-ratio: 2 / 1;
+}
+
+/* Homepage Field Notes: portrait 3:4 covers and full-card links. */
+.notes-strip .note-card {
+  display: flex;
+  height: 100%;
+  min-width: 205px;
+  margin: 0;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.notes-strip .note-card-image {
+  aspect-ratio: 3 / 4;
+  flex: 0 0 auto;
+}
+
+.notes-strip .note-card-copy {
+  display: flex;
+  min-height: 150px;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.notes-strip .note-card-copy span {
+  margin-top: auto;
+  padding-top: 1.3rem;
+}
+
+.notes-strip .note-card:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -3px;
+}
+
+/* Homepage Experience: equal tracks, stable boxes, aligned content zones. */
+.experience-grid {
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+}
+
+.experience-grid .experience-card,
+.experience-grid .experience-card:nth-child(2n),
+.experience-grid .experience-card:nth-child(3n) {
+  display: flex;
+  height: 100%;
+  min-height: 620px;
+  align-self: stretch;
+  flex-direction: column;
+  transform: none !important;
+}
+
+.experience-grid .experience-card-head {
+  min-height: 145px;
+  align-items: flex-start;
+}
+
+.experience-grid .experience-card > p {
+  min-height: 5.4em;
+}
+
+.experience-grid .experience-card > ul {
+  flex: 1 1 auto;
+}
+
+.experience-grid .experience-card > .tag-row {
+  margin-top: auto;
+}
+
+@media (max-width: 720px) {
+  .notes-strip .note-card {
+    min-width: 74vw;
+  }
+
+  .experience-grid {
+    grid-auto-rows: auto;
+  }
+
+  .experience-grid .experience-card,
+  .experience-grid .experience-card:nth-child(2n),
+  .experience-grid .experience-card:nth-child(3n) {
+    height: auto;
+    min-height: 0;
+  }
+
+  .experience-grid .experience-card-head,
+  .experience-grid .experience-card > p {
+    min-height: 0;
+  }
+}
+
+/* GitHub Pages v6: full-color adaptive brand signatures. */
+.company-logo,
+.experience-card .company-logo,
+.archive-experience-meta .company-logo {
+  position: static;
+  inset: auto;
+  display: none !important;
+  width: var(--logo-width, 168px);
+  height: var(--logo-height, 68px);
+  max-width: 100%;
+  flex: 0 0 auto;
+  align-items: center;
+  aspect-ratio: auto;
+  margin: 1.15rem 0 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
+  transform: none;
+  transition: none;
+}
+
+.show-logos .company-logo {
+  display: flex !important;
+  visibility: visible;
+  opacity: 1;
+}
+
+.experience-card .company-logo {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+.archive-experience-meta .company-logo {
+  align-self: flex-start;
+  justify-content: flex-start;
+  margin-top: 1.5rem;
+}
+
+.company-logo img,
+.experience-card .company-logo img,
+.archive-experience-meta .company-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0;
+  object-fit: contain;
+  object-position: center;
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
+  transform: none;
+}
+
+.experience-card:hover .company-logo,
+.experience-card:focus-within .company-logo,
+.archive-experience-list > article:hover .company-logo,
+.archive-experience-list > article:focus-within .company-logo {
+  transform: none;
+}
+
+/* Each signature gets a canvas suited to its actual artwork ratio. */
+.company-logo:has(img[src*="dassault-systemes"]) {
+  --logo-width: 72px;
+  --logo-height: 76px;
+}
+
+.company-logo:has(img[src*="gtechfin"]) {
+  --logo-width: 78px;
+  --logo-height: 70px;
+}
+
+.company-logo:has(img[src*="fresh-road"]) {
+  --logo-width: 216px;
+  --logo-height: 52px;
+}
+
+.company-logo:has(img[src*="ping-an"]) {
+  --logo-width: 188px;
+  --logo-height: 58px;
+}
+
+.company-logo:has(img[src$="/uci.png"]) {
+  --logo-width: 188px;
+  --logo-height: 70px;
+}
+
+.company-logo:has(img[src*="uci-xie-lab"]) {
+  --logo-width: 142px;
+  --logo-height: 72px;
+}
+
+.company-logo:has(img[src*="deepem-lab"]),
+.company-logo:has(img[src*="uci-relational-cognition-lab"]) {
+  --logo-width: 72px;
+  --logo-height: 72px;
+  border-radius: 50%;
+}
+
+.company-logo:has(img[src*="cmu"]) {
+  --logo-width: 150px;
+  --logo-height: 82px;
+}
+
+
+
+/* These supplied UCI seals contain a baked checkerboard outside the seal. */
+.company-logo img[src*="deepem-lab"],
+.company-logo img[src*="uci-relational-cognition-lab"] {
+  border-radius: 50%;
+  clip-path: circle(46% at 50% 50%);
+}
+
+@media (max-width: 620px) {
+  .experience-grid .experience-card-head {
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .experience-card-aside {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .experience-card .company-logo {
+    align-self: flex-start;
+    justify-content: flex-start;
+  }
+
+  .archive-experience-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: start;
+  }
+}

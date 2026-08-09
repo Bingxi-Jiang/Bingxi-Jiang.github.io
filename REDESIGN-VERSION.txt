@@ -1,4 +1,11 @@
-Bingxi Jiang GitHub Pages Redesign v5
+Bingxi Jiang GitHub Pages Redesign v6
+
+Logo system updates:
+- Home and Work use the supplied full-color company logos.
+- Logos keep their original proportions and are no longer grayscale watermarks.
+- Brand-specific canvases support vertical marks, compact emblems, wide wordmarks, and university seals.
+- Ping An's large transparent canvas is compensated in CSS without modifying the source image.
+- The two opaque UCI seal images are circularly clipped to hide their checkerboard corners.
 
 Homepage updates:
 - Field Notes covers use a 3:4 ratio.
