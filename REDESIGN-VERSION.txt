@@ -1,14 +1,15 @@
-Bingxi Jiang Portfolio — Redesigned GitHub Pages Export
-Build date: 2026-08-08
+Bingxi Jiang GitHub Pages Redesign v4
 
-This package is the revised version. It includes:
-- Adjusted hero punctuation spacing
-- Rebuilt engineering profile and resume section
-- 16:9 project presentation
-- Standalone Streamlit AI Hack first-place feature
-- Software-engineering-first experience section
-- Optional company-logo preview controls
-- Simplified homepage event record with formal event names
-- Expanded Work archive layout
+Featured project order:
+1. Noted
+2. FocusTrail
+3. Course Helper
+4. LongevityLLM Benchmark
 
-The former "Evidence from the work" homepage section is not included.
+Project image directories are independent:
+- Home: media/projects/home/
+- Archive: media/projects/archive/
+
+Field Notes image directories are independent:
+- Home: media/field-notes/home/
+- Detail/index: media/field-notes/
