@@ -234,3 +234,8 @@
     justify-content: start;
   }
 }
+
+/* The single resume fills its panel at every breakpoint. */
+.resume-panel > div:only-child {
+  grid-column: 1 / -1;
+}
