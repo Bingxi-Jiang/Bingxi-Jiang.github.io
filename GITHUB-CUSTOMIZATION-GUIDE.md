@@ -89,6 +89,7 @@ Field Notes 索引页和每篇详情页使用：
 - `pycon.jpg`
 - `caltech-longevity.jpg`
 - `berkeley-ai-hackathon.jpg`
+- `hackmit.jpg`
 - `streamlit-first-place.jpg`（PyCon 详情页第二张图与主页 Award）
 
 主页小卡现在使用 3:4 竖向比例，并且整张卡片都可以点击进入对应的 Field Notes 详情页。详情页主图可保留原始比例，但若希望视觉更稳定，建议使用 16:9 或 3:2 横图。

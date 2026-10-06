@@ -7,6 +7,12 @@
 }
 
 /* Homepage Field Notes: portrait 3:4 covers and full-card links. */
+.notes-strip {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(205px, 1fr);
+}
+
 .notes-strip .note-card {
   display: flex;
   height: 100%;
@@ -74,6 +80,11 @@
 }
 
 @media (max-width: 720px) {
+  .notes-strip {
+    grid-template-columns: none;
+    grid-auto-columns: 74vw;
+  }
+
   .notes-strip .note-card {
     min-width: 74vw;
   }
